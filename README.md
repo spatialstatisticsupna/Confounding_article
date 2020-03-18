@@ -46,4 +46,5 @@ R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models cons
   
  - [**Figures_and_Tables.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/Figures_and_Tables.R)
  
-  This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present work. The fitted models with INLA and PQL can be download from [DataAnalysis_INLA.Rdata] and [DataAnalysis_PQL.Rdata], respectively.
+ 
+  This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present work. The fitted models with INLA and PQL can be download from
