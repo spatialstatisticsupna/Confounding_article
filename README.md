@@ -9,9 +9,11 @@ This repository contains the Supplementary Material and R code to fit with INLA 
 
 
 # Data
-Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, India, during the period 2001-2014.
+Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, India, during the period 2001-2014. The data is publically available online without any form of restriction or copyright.
 
 - File name: [**DowryDeaths_UttarPradesh.txt**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/DowryDeaths_UttarPradesh.txt)
+
+This .txt file contains a data set with the following variables:
 	- **x0**: Political party of the Chief Minister ruling Uttar Pradesh during the study period: Bharatiya Janata Party (BJP) during 2001; Bahujan Samaj Party (BSP) during 2002-2003 and 2007-2011; Samajwadi Party (SP) during 2004-2006 and 2012-2014 (Source: https://www.mapsofindia.com/uttar-pradesh/chief-ministers.html or https://en.wikipedia.org/wiki/List_of_chief_ministers_of_Uttar_Pradesh)
 	- **x1**: sex ratio. Number of females per 1000 males (Source: Office of the Registrar General and  Census Commissioner, India. (http://censusindia.gov.in)
 	- **x2**: population density (People/Km2) (Source: Office of the Registrar General and  Census Commissioner, India. http://censusindia.gov.in)
