@@ -6,6 +6,7 @@ This repository contains the Supplementary Material and R code to fit with INLA 
 
 - [Data](#Data)
 - [R code](#R-code)
+- [References](#References)
 
 
 # Data
@@ -48,3 +49,7 @@ R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models cons
  
  
   This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present work. The fitted models with INLA and PQL can be download from
+
+
+# References
+Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2020). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. https://arxiv.org/abs/2003.01946
