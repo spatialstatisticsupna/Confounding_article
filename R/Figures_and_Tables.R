@@ -29,8 +29,8 @@ data$SMR <- data$obs/data$E
 # all.equal(sum(data$obs),sum(data$E))
 
 Data <- data.frame(O=data$obs, E=data$E, SMR=data$SMR,
-                   X1=scale(data$x1), # Sex ratio (nº of woman per 100,000 men)
-                   X2=scale(data$x2), # Population density (nº of people per square kilometer)
+                   X1=scale(data$x1), # Sex ratio (nÂº of woman per 100,000 men)
+                   X2=scale(data$x2), # Population density (nÂº of people per square kilometer)
                    X3=scale(data$x3), # Female literacy rate (%)
                    X4=scale(data$x4), # Per capita income (PCI)
                    X5=scale(data$x5), # Murder (per 100,000 people)
@@ -59,7 +59,7 @@ Qst <- kronecker(Qt,Qs)
 ###############################
 ## Read the cartography file ##
 ###############################
-carto_up <- readOGR("data/carto_up.shp")
+carto_up <- readOGR("data/carto_up")
 plot(carto_up,axes=T)
 
 ## Add the neighborhood graph ##
@@ -102,7 +102,7 @@ if(!file.exists("figures")) {
 ##          of the fixed effects for models fitted with INLA, and point estimates,   ##
 ##          standard errors and 95% confidence intervals obtained with PQL.          ##
 #######################################################################################
-p <- 7 ## nº of fixed effects (including the intercept)
+p <- 7 ## nÂº of fixed effects (including the intercept)
 
 ## INLA models ##
 INLA.fixed <- lapply(Models.INLA, function(x) x$summary.fixed[,c(1,2,3,5)])
