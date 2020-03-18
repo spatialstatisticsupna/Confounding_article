@@ -86,7 +86,6 @@ par(mfrow=c(1,1))
 ##############################################
 ## Load the models fitted with INLA and PQL ##
 ##############################################
-#load("DataAnalysis_INLA_20200304.Rdata")
 load("DataAnalysis_INLA.Rdata")
 Models.INLA <- list(Model1,Model2,Model3b,Model4)
 

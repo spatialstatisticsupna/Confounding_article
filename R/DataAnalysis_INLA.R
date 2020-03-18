@@ -70,7 +70,7 @@ Qt <- t(Dm)%*%Dm
 ###############################
 ## Read the cartography file ##
 ###############################
-carto_up <- readOGR("data/carto_up.shp")
+carto_up <- readOGR("data/carto_up")
 plot(carto_up,axes=T)
 
 ## Add the neighborhood graph ##
@@ -157,7 +157,7 @@ Pc <- diag(S*T)-P
 #rankMatrix(Pc)
 K <- as.matrix(eigen(P)$vectors[,eigen(P)$values>1e-12])
 L <- eigen(Pc)$vectors[,eigen(Pc)$values>1e-12]
-#rankMatrix(rbind(X,K))[1]==ncol(X)  # K es proporcional a X
+#rankMatrix(rbind(X,K))[1]==ncol(X)  # K is proportional to X
 #all(t(K)%*%L<1e-12)		# K'L=0
 
 Z.area <- solve(W.sqrt)%*%L%*%t(L)%*%W.sqrt%*%kronecker(ones.T,diag(S))
