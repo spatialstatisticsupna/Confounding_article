@@ -45,5 +45,5 @@ R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models cons
   This R script contains the necessary functions to replicate the model fitting with INLA of the spatio-temporal models considered in the data analysis section of the present work, using the dowry deaths data in Uttar Pradesh considered here, or replacing it with any other data with similar structure.
   
  - [**Figures_and_Tables.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/Figures_and_Tables.R)
-
+ 
   This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present work. The fitted models with INLA and PQL can be download from [DataAnalysis_INLA.Rdata] and [DataAnalysis_PQL.Rdata], respectively.
