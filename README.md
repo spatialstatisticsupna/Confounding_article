@@ -23,8 +23,8 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 	- **x2**: Population density (people/km2). Source: Office of the Registrar General and Census Commissioner, India (http://censusindia.gov.in).
 	- **x3**: Female literacy rate. Office of the Registrar General and Census Commissioner, India (http://censusindia.gov.in).
 	- **x4**: Per capita income referenced to year 2004. Source: Directorate of Economics and Statistics Government of Uttar Pradesh  (http://updes.up.nic.in).
-	- **x5**: Murder rate. Number of murders per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
-	- **x6**: Burglary rate. Number of burglaries per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
+	- **x5**: Murder rate. Number of murders per 100,000 inhabitants. Source: Open Government Data Platform India (https://data.gov.in).
+	- **x6**: Burglary rate. Number of burglaries per 100,000 inhabitants. Source: Open Government Data Platform India (https://data.gov.in).
 
 
 - File name: [**Uttar_Pradesh_nb.graph**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/Uttar_Pradesh_nb.graph)
@@ -35,3 +35,11 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 - File name: [**carto_up.shp**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/carto_up/)
 
   Shapefile containing the cartography of the 70 districts of Uttar Pradesh.
+
+
+# R code
+R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models considered in the data analysis section of the present work and code to reproduce all the figures and tables. All the R files are written by the authors of the paper using R version 3.6.2 (2019-12-12).
+
+- File name: [**DataAnalysis_INLA.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA.R)
+
+  This R script contains the necessary functions to replicate the model fitting with INLA of the spatio-temporal models considered in the data analysis section of the present work, using the dowry deaths data in Uttar Pradesh considered here, or replacing it with any other data with similar structure.
