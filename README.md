@@ -14,10 +14,18 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 - File name: [**DowryDeaths_UttarPradesh.txt**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/DowryDeaths_UttarPradesh.txt)
   
   This .txt file contains a data set with the following variables:
-	- **x0**: Political party of the Chief Minister ruling Uttar Pradesh during the study period: Bharatiya Janata Party (BJP) during 2001; Bahujan Samaj Party (BSP) during 2002-2003 and 2007-2011; Samajwadi Party (SP) during 2004-2006 and 2012-2014 (Source: https://www.mapsofindia.com/uttar-pradesh/chief-ministers.html or https://en.wikipedia.org/wiki/List_of_chief_ministers_of_Uttar_Pradesh)
-	- **x1**: sex ratio. Number of females per 1000 males (Source: Office of the Registrar General and  Census Commissioner, India. (http://censusindia.gov.in)
-	- **x2**: population density (People/Km2) (Source: Office of the Registrar General and  Census Commissioner, India. http://censusindia.gov.in)
-	- **x3**: female literacy rate (Source: Office of the Registrar General and  Census Commissioner, India. (http://censusindia.gov.in)
-	- **x4**: per capita income referenced to year 2004 (Source: Directorate of Economics And Statistics Government Of Uttar Pradesh. (http://updes.up.nic.in)
-	- **x5**: number of murders per 100000 inhabitants (Source: Open Government Data Platform India. https://data.gov.in)
-	- **x6**: number of burglaries per 100000 inhabitants (Source: Open Government Data Platform India. https://data.gov.in)
+	- _dist_: Districts.
+	- _year_: Year (from 2001 to 2014).
+	- _state_: Uttar Pradesh.
+	- _obs_: Number of dowry deaths.
+	- _pop_linear_: Female population between 15 and 49 years (linear interpolation).
+	- **x1**: Sex ratio. Number of women per 1,000 men. Source: Office of the Registrar General and Census Commissioner, India (http://censusindia.gov.in).
+	- **x2**: Population density (people/km2). Source: Office of the Registrar General and Census Commissioner, India (http://censusindia.gov.in).
+	- **x3**: Female literacy rate. Office of the Registrar General and Census Commissioner, India (http://censusindia.gov.in).
+	- **x4**: Per capita income referenced to year 2004. Source: Directorate of Economics and Statistics Government of Uttar Pradesh  (http://updes.up.nic.in).
+	- **x5**: Murder rate. Number of murders per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
+	- **x6**: Burglary rate. Number of burglaries per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
+
+- File name: [**Uttar_Pradesh_nb.graph**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/Uttar_Pradesh_nb.graph)
+  
+  An inla.graph object with the spatial neighborhood structure of the 70 districts of Uttar Pradesh.
