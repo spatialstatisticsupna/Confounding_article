@@ -32,6 +32,6 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
   An inla.graph object with the spatial neighborhood structure of the 70 districts of Uttar Pradesh.
 
 
-- File name: [**carto_up.shp**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/carto_up.shp)
+- File name: [**carto_up.zip**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/carto_up.zip)
 
-  Shapefile containing the cartography of the 70 districts of Uttar Pradesh.
+  Zipfile containing the cartography of the 70 districts of Uttar Pradesh (in shapefile format).
