@@ -26,6 +26,12 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 	- **x5**: Murder rate. Number of murders per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
 	- **x6**: Burglary rate. Number of burglaries per 100,000 inhabitants. Source: Open Government Data Platform India https://data.gov.in).
 
+
 - File name: [**Uttar_Pradesh_nb.graph**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/Uttar_Pradesh_nb.graph)
   
   An inla.graph object with the spatial neighborhood structure of the 70 districts of Uttar Pradesh.
+
+
+- File name: [**carto_up.shp**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/data/carto_up.shp)
+
+  Shapefile containing the cartography of the 70 districts of Uttar Pradesh.
