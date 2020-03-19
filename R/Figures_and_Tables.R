@@ -83,9 +83,11 @@ for(i in 1:6){
 par(mfrow=c(1,1))
 
 
-##############################################
-## Load the models fitted with INLA and PQL ##
-##############################################
+##########################################################################################
+## Load the models fitted with INLA and PQL, which can be downloaded from:              ##
+##  - https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_INLA.Rdata ##
+##  - https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_PQL.Rdata  ##
+##########################################################################################
 load("DataAnalysis_INLA.Rdata")
 Models.INLA <- list(Model1,Model2,Model3b,Model4)
 
@@ -102,7 +104,7 @@ if(!file.exists("figures")) {
 ##          of the fixed effects for models fitted with INLA, and point estimates,   ##
 ##          standard errors and 95% confidence intervals obtained with PQL.          ##
 #######################################################################################
-p <- 7 ## nº of fixed effects (including the intercept)
+p <- 7 ## number of fixed effects (including the intercept)
 
 ## INLA models ##
 INLA.fixed <- lapply(Models.INLA, function(x) x$summary.fixed[,c(1,2,3,5)])
