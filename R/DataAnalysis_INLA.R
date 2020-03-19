@@ -8,7 +8,7 @@ library(spdep)
 ############################################################################
 ## Read the dowry death mortality data (or replace it with your own data) ##
 ############################################################################
-data <- read.table(file="data/DowryDeaths_UttarPradesh.txt", header=TRUE)
+data <- read.table(file="../data/DowryDeaths_UttarPradesh.txt", header=TRUE)
 str(data)
 
 ## Define 'V.area' and 'V.year' variables ##
@@ -56,7 +56,7 @@ Beta.df <- as.matrix(Data[,paste("X",1:p,sep="")])
 ##################################################
 ## Define spatial and temporal structure matrix ##
 ##################################################
-g <- inla.read.graph("data/Uttar_Pradesh_nb.graph")
+g <- inla.read.graph("../data/Uttar_Pradesh_nb.graph")
 Qs <- matrix(0, g$n, g$n)
 for (i in 1:g$n){
   Qs[i,i]=g$nnbs[[i]]
@@ -70,7 +70,7 @@ Qt <- t(Dm)%*%Dm
 ###############################
 ## Read the cartography file ##
 ###############################
-carto_up <- readOGR("data/carto_up")
+carto_up <- readOGR("../data/carto_up")
 plot(carto_up,axes=T)
 
 ## Add the neighborhood graph ##
