@@ -1,5 +1,5 @@
 # Alleviating confounding in spatio-temporal areal models
-This repository contains the Supplementary Material and R code to fit with INLA the spatio-temporal models considered in the data analysis section of the work entitled _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ (Adin et al., 2020). It also contains the necessary functions to reproduce all the figures and tables of the present article.
+This repository contains the R code to fit with INLA the spatio-temporal models considered in the data analysis section of the work entitled _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ (Adin et al., 2020). It also contains the necessary functions to reproduce all the figures and tables of the present article.
 
 
 ## Table of contents
