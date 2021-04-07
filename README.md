@@ -52,4 +52,4 @@ R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models cons
 
 
 # References
-[Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2021). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. _Statistical Modelling (accepted)_] (https://arxiv.org/abs/2003.01946)
+[Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2021). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. _Statistical Modelling (accepted)_](https://arxiv.org/abs/2003.01946)
