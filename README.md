@@ -39,7 +39,7 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 
 
 # R code
-R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models considered in the data analysis section of the present work and code to reproduce all the figures and tables. All the R files are written by the authors of the paper using R version 3.6.2 (2019-12-12).
+R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models considered in the data analysis section of the present work and code to reproduce all the figures and tables. All the R files are written by the authors of the paper using R version 4.0.3 (2020-10-10).
 
 - [**DataAnalysis_INLA.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA.R)
 
