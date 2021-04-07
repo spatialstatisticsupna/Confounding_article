@@ -292,8 +292,8 @@ for(i in 2:4){
   q1 <- unlist(lapply(aux, function(x) inla.qmarginal(0.025,x)))
   q2 <- unlist(lapply(aux, function(x) inla.qmarginal(0.975,x)))
 
-  plot(range(x),c(0.7,1.3),type="n",xlab="",ylab="", xaxt="n", main=paste("Model ST",i,sep=""))
-  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0)
+  plot(range(x), c(0.7,1.3), type="n", xlab="", cex.axis=1.5, ylab="", xaxt="n", main=paste("Model ST",i,sep=""), cex.main=2)
+  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0, cex.axis=1.5)
   X.Vec <- c(x, tail(x, 1), rev(x), x[1])
   Y.Vec <- c(q1, tail(q2, 1), rev(q2), q1[1])
   polygon(X.Vec, Y.Vec, col = "grey", border = NA)
@@ -338,8 +338,8 @@ par(mfrow=c(1,3), pty="m")
 x <- 1:T
 
 for(i in loc){
-  plot(range(x),c(0.4,1.8),type="n",xlab="",ylab="", xaxt="n", main=data$dist[i])
-  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0)
+  plot(range(x),c(0.4,1.8),type="n",xlab="",ylab="", xaxt="n", main=data$dist[i], cex.main=2, cex.axis=1.5)
+  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0, cex.axis=1.5)
   
   X.Vec <- c(x, tail(x, 1), rev(x), x[1])
   Y.Vec <- c(M3.Q1[i,], tail(M3.Q2[i,], 1), rev(M3.Q2[i,]), M3.Q1[i,1])
@@ -354,7 +354,7 @@ for(i in loc){
   
   abline(h=1, lty=2)
   
-  legend("topright", legend=c("Model ST3","Model ST4"), col=c("black","blue"), lwd=2)
+  legend("topright", legend=c("Model ST3","Model ST4"), col=c("black","blue"), lwd=2, cex=1.5)
 }
 
 dev.off()
@@ -388,8 +388,8 @@ par(mfrow=c(1,3), pty="m")
 x <- 1:T
 
 for(i in loc){
-  plot(range(x),c(0.2,2.8),type="n",xlab="",ylab="", xaxt="n", main=data$dist[i])
-  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0)
+  plot(range(x),c(0.2,2.8),type="n",xlab="",ylab="", xaxt="n", main=data$dist[i], cex.main=2, cex.axis=1.5)
+  axis(1, at=seq(1,T,4), labels=seq(t.from,t.to,4), las=0, cex.axis=1.5)
   
   X.Vec <- c(x, tail(x, 1), rev(x), x[1])
   Y.Vec <- c(M3.q1[i,], tail(M3.q2[i,], 1), rev(M3.q2[i,]), M3.q1[i,1])
@@ -405,7 +405,7 @@ for(i in loc){
   
   abline(h=1, lty=2)
   
-  legend("topright", legend=c("Model ST3","Model ST4","SMR"), col=c("black","blue","red"), lwd=2)
+  legend("topright", legend=c("Model ST3","Model ST4","SMR"), col=c("black","blue","red"), lwd=2, cex=1.5)
 }
 
 dev.off()
