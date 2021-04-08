@@ -1,5 +1,5 @@
 # Alleviating confounding in spatio-temporal areal models
-This repository contains the R code to fit with INLA the spatio-temporal models considered in the data analysis section of the work entitled _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ [(Adin et al., 2021)](https://arxiv.org/abs/2003.01946). It also contains the necessary functions to reproduce all the figures and tables of the article.
+This repository contains the R code to fit with INLA the spatio-temporal models considered in the data analysis section of the paper _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ [(Adin et al., 2021)](https://arxiv.org/abs/2003.01946). It also contains the necessary functions to reproduce all the figures and tables of the article.
 
 
 ## Table of contents
@@ -39,19 +39,19 @@ Dowry deaths and socio-demographic covariates in 70 districts of Uttar Pradesh, 
 
 
 # R code
-R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models considered in the data analysis section of the present work and code to reproduce all the figures and tables. All the R files are written by the authors of the paper using R version 4.0.3 (2020-10-10).
+R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models considered in the data analysis section of the present paper, and code to reproduce all the figures and tables. All the R files are written by the authors of the paper using R version 4.0.3 (2020-10-10).
 
 - [**DataAnalysis_INLA.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA.R)
 
-  This R script contains the necessary functions to replicate the model fitting with INLA of the spatio-temporal models considered in the data analysis section of the present work, using the dowry deaths data in Uttar Pradesh considered here, or replacing it with any other data with similar structure.
+  This R script contains the necessary functions to replicate with INLA the fit of the spatio-temporal models considered in the data analysis section of the present paper. The code can be used with any other data set with similar structure.
   
 - [**Figures_and_Tables.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/Figures_and_Tables.R)
  
  
-  This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present work. The fitted models with INLA and PQL can be download from [DataAnalysis_INLA.Rdata](https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_INLA.Rdata) and [DataAnalysis_PQL.Rdata](https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_PQL.Rdata), respectively.
+  This R script contains the necessary functions to reproduce all the figures and tables of the data analysis section of the present paper. The fitted models with INLA and PQL can be download from [DataAnalysis_INLA.Rdata](https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_INLA.Rdata) and [DataAnalysis_PQL.Rdata](https://emi-sstcdapp.unavarra.es/Confounding_article/data/DataAnalysis_PQL.Rdata), respectively.
 
 ### Dealing with large datasets
-When the number of small areas (denoted as S) and/or time periods (denoted as T) is large, fitting restricted regression models with INLA could be computationally very demanding due to the large and dense design matrices of the spatial, temporal and spatio-temporal random effects. The [**following code**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA_fast.R) should be used in those cases, where the posterior distributions of the fixed effects for the restricted regression models are estimated as a linear combination of the log-risks and the random effects of the models without accounting for confounding using the `INLA::inla.make.lincombs()` function.
+When the number of small areas (denoted as S) and/or time periods (denoted as T) is large, fitting restricted regression models with INLA could be computationally very demanding due to the large and dense design matrices of the spatial, temporal and spatio-temporal random effects. The [**following code**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA_fast.R) should be used in those cases where the posterior distributions of the fixed effects for the restricted regression models are estimated as a linear combination of the log-risks and the random effects of the models without accounting for confounding using the `INLA::inla.make.lincombs()` function.
 
 
 Note that if we write the spatial model without accounting for confounding as
