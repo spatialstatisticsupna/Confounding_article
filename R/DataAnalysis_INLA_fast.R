@@ -36,8 +36,8 @@ data$SMR <- data$obs/data$E
 # all.equal(sum(data$obs),sum(data$E))
 
 Data <- data.frame(O=data$obs, E=data$E, SMR=data$SMR,
-                   X1=scale(data$x1), # Sex ratio (nº of woman per 100,000 men)
-                   X2=scale(data$x2), # Population density (nº of people per square kilometer)
+                   X1=scale(data$x1), # Sex ratio (n? of woman per 100,000 men)
+                   X2=scale(data$x2), # Population density (n? of people per square kilometer)
                    X3=scale(data$x3), # Female literacy rate (%)
                    X4=scale(data$x4), # Per capita income (PCI)
                    X5=scale(data$x5), # Murder (per 100,000 people)
@@ -62,9 +62,11 @@ for (i in 1:g$n){
   Qs[i,i]=g$nnbs[[i]]
   Qs[i,g$nbs[[i]]]=-1
 }
+Qs <- as(Qs,"Matrix")
 
 Dm <- diff(diag(T),differences=1)
 Qt <- t(Dm)%*%Dm
+Qt <- as(Qt,"Matrix")
 
 
 ###############################
@@ -73,7 +75,7 @@ Qt <- t(Dm)%*%Dm
 carto_up <- readOGR("../data/carto_up")
 plot(carto_up,axes=T)
 
-## Add the neighbourhood graph ##
+## Add the neighborhood graph ##
 W <- -Qs
 diag(W) <- 0
 carto.nb <- mat2listw(W)$neighbours
@@ -160,11 +162,11 @@ Model2 <- inla(f.M2, family="poisson", data=Data, E=E,
 Model2$summary.fixed
 
 
-#####################################################################
-## Model ST3a: Restricted regression (Eq. 3.2 -> with constraints) ##
-#####################################################################
-W <- diag(Model2$summary.fitted.values$mode*Data$E)
-W.sqrt <- diag(sqrt(diag(W)))
+####################################################################
+## Model ST3: Restricted regression (Eq. 3.2 -> with constraints) ##
+####################################################################
+W <- Diagonal(S*T, Model2$summary.fitted.values$mode*Data$E)
+W.sqrt <- Diagonal(S*T, sqrt(diag(W)))
 
 X <- cbind(ones.ST,as.matrix(Beta.df))
 P <- W.sqrt%*%X%*%solve(t(X)%*%W%*%X)%*%t(X)%*%W.sqrt
@@ -172,10 +174,10 @@ P <- W.sqrt%*%X%*%solve(t(X)%*%W%*%X)%*%t(X)%*%W.sqrt
 Pc <- diag(S*T)-P
 #rankMatrix(Pc)
 
+eigen.P <- eigen(P)
 eigen.Pc <- eigen(Pc)
+K <- as.matrix(eigen.P$vectors[,eigen.P$values>1e-12])
 L <- eigen.Pc$vectors[,eigen.Pc$values>1e-12]
-# eigen.P <- eigen(P)
-# K <- as.matrix(eigen.P$vectors[,eigen.P$values>1e-12])
 #rankMatrix(rbind(X,K))[1]==ncol(X)  # K is proportional to X
 #all(t(K)%*%L<1e-12)		# K'L=0
 
@@ -184,30 +186,11 @@ Z.area <- M%*%kronecker(ones.T,diag(S))
 Z.year <- M%*%kronecker(diag(T),ones.S)
 Z.area.year <- M%*%diag(S*T)
 
-Data.M3a <- list(O=Data$O, E=Data$E,
-                 X1=Data$X1, X2=Data$X2, X3=Data$X3, X4=Data$X4, X5=Data$X5, X6=Data$X6,
-                 Intercept=c(1,rep(NA,6+S+T+S*T)),
-                 beta1=c(NA,1,rep(NA,5+S+T+S*T)),
-                 beta2=c(rep(NA,2),1,rep(NA,4+S+T+S*T)),
-                 beta3=c(rep(NA,3),1,rep(NA,3+S+T+S*T)),
-                 beta4=c(rep(NA,4),1,rep(NA,2+S+T+S*T)),
-                 beta5=c(rep(NA,5),1,rep(NA,1+S+T+S*T)),
-                 beta6=c(rep(NA,6),1,rep(NA,S+T+S*T)),
-                 ID.area=c(rep(NA,1+6),1:S,rep(NA,T+S*T)),
-                 ID.year=c(rep(NA,1+6+S),1:T,rep(NA,S*T)),
-                 ID.area.year=c(rep(NA,1+6+S+T),1:(S*T)))
-
-# Data.M3a <- list(O=Data$O, E=Data$E)
-# Data.M3a <- append(Data.M3a, setNames(lapply(colnames(Beta.df), function(x) Beta.df[,x]), colnames(Beta.df)))
-# Data.M3a <- append(Data.M3a, list(Intercept=c(1,rep(NA,p+S+T+S*T))))
-# for(i in 1:p){
-#    aux <- rep(NA,1+p+S+T+S*T)
-#    aux[1+i] <- 1
-#    Data.M3a <- append(Data.M3a, setNames(list(aux), paste0("beta",i)))
-# }
-# Data.M3a <- append(Data.M3a, list(ID.area=c(rep(NA,1+p),1:S,rep(NA,T+S*T))))
-# Data.M3a <- append(Data.M3a, list(ID.year=c(rep(NA,1+p+S),1:T,rep(NA,S*T))))
-# Data.M3a <- append(Data.M3a, list(ID.area.year=c(rep(NA,1+p+S+T),seq(1,S*T))))
+## NOTE: Fit again Model 2 and compute the posterior distribution of the regression coefficients as a   ##
+##       linear combination of the log-risks and random effects using the inla.make.lincombs() function ##
+M0 <- solve(t(X)%*%X)%*%t(X)
+beta.lc = inla.make.lincombs(Predictor=M0, ID.area=-M0%*%Z.area, ID.year=-M0%*%Z.year, ID.area.year=-M0%*%Z.area.year)
+names(beta.lc) <- paste("beta",as.character(0:p),sep="")
 
 
 ## Sum-to-zero constraints for the interaction ##
@@ -219,109 +202,26 @@ Bst <- rbind(Bst1[-1,],Bst2[-1,])
 
 
 ## INLA model ##
-f.M3a <- O ~ -1 + Intercept + beta1 +  beta2 + beta3 + beta4 + beta5 + beta6 +
-  f(ID.area, model="generic0", Cmatrix=Qs, rankdef=1, constr=TRUE, hyper=list(prec=list(prior=sdunif))) + 
-  f(ID.year, model="generic0", Cmatrix=Qt, rankdef=1, constr=TRUE, hyper=list(prec=list(prior=sdunif))) + 
-  f(ID.area.year, model="generic0", Cmatrix=R, rankdef=r.def, constr=TRUE, hyper=list(prec=list(prior=sdunif)),
-    extraconstr=list(A=Bst, e=rep(0,nrow(Bst))))
+f.M3 <- f.M2
 
-# f.M3a <- formula(paste("O ~ -1 + Intercept +",paste0('beta',1:p,collapse="+"),
-#                        "+ f(ID.area, model='generic0', Cmatrix=Qs, rankdef=1, constr=TRUE, hyper=list(prec=list(prior=sdunif)))",
-#                        "+ f(ID.year, model='generic0', Cmatrix=Qt, rankdef=1, constr=TRUE, hyper=list(prec=list(prior=sdunif)))",
-#                        "+ f(ID.area.year, model='generic0', Cmatrix=R, rankdef=r.def, hyper=list(prec=list(prior=sdunif)),
-#                             constr=TRUE, extraconstr=list(A=Bst, e=rep(0,nrow(Bst))))"))
+Model3 <- inla(f.M3, family="poisson", data=Data, E=E,
+               control.predictor=list(compute=TRUE, cdf=c(log(1))),
+               control.compute=list(dic=TRUE, cpo=TRUE, waic=TRUE),
+               lincomb=append(all.lc,beta.lc),
+               control.inla=list(strategy=strategy))
 
-Apredictor <- cbind(rep(1,S*T),Beta.df,Z.area,Z.year,Z.area.year)
+names <- rownames(Model3$summary.fixed)
+pos <- grep("^beta",rownames(Model3$summary.lincomb.derived))
+Model3$summary.fixed <- Model3$summary.lincomb.derived[pos,-1]
+rownames(Model3$summary.fixed) <- names
+Model3$summary.lincomb.derived <- Model3$summary.lincomb.derived[-pos,]
 
-Model3a <- inla(f.M3a, family="poisson", data=Data.M3a, E=E,
-                control.predictor=list(compute=TRUE, A=Apredictor),
-                control.compute=list(dic=TRUE, cpo=TRUE, waic=TRUE),
-                control.inla=list(strategy=strategy),
-                lincomb=all.lc.Apredictor,
-                control.mode=list(theta=Model2$mode$theta, restart=FALSE),
-                control.fixed=list(prec=0))
+pos <- grep("^beta",names(Model3$marginals.lincomb.derived))
+Model3$marginals.fixed <- Model3$marginals.lincomb.derived[pos]
+names(Model3$marginals.fixed) <- names
+Model3$marginals.lincomb.derived[pos] <- NULL
 
-Model3a$summary.fixed
-
-
-####################################################################
-## Model ST3b: Restricted regression (Eq. 3.1 -> reparameterized) ##
-####################################################################
-W <- diag(Model2$summary.fitted.values$mode*Data$E)
-W.sqrt <- diag(sqrt(diag(W)))
-
-X <- cbind(ones.ST,as.matrix(Beta.df))
-P <- W.sqrt%*%X%*%solve(t(X)%*%W%*%X)%*%t(X)%*%W.sqrt
-#rankMatrix(P)
-Pc <- diag(S*T)-P
-#rankMatrix(Pc)
-
-eigen.Pc <- eigen(Pc)
-L <- eigen.Pc$vectors[,eigen.Pc$values>1e-12]
-# eigen.P <- eigen(P)
-# K <- as.matrix(eigen.P$vectors[,eigen.P$values>1e-12])
-#rankMatrix(rbind(X,K))[1]==ncol(X)  # K is proportional to X
-#all(t(K)%*%L<1e-12)		# K'L=0
-
-eigen.Qs <- eigen(Qs)
-Us <- eigen.Qs$vectors[,eigen.Qs$values>1e-12]
-Ds <- diag(eigen.Qs$values[eigen.Qs$values>1e-12])
-
-eigen.Qt <- eigen(Qt)
-Ut <- eigen.Qt$vectors[,eigen.Qt$values>1e-12]
-Dt <- diag(eigen.Qt$values[eigen.Qt$values>1e-12])
-
-Ust <- kronecker(Ut,Us)
-Dst <- kronecker(Dt,Ds)
-
-M <- solve(W.sqrt)%*%L%*%t(L)%*%W.sqrt
-Z.area <- M%*%kronecker(ones.T,Us)
-Z.year <- M%*%kronecker(Ut,ones.S)
-Z.area.year <- M%*%Ust
-
-Data.M3b <- list(O=Data$O, E=Data$E,
-                 X1=Data$X1, X2=Data$X2, X3=Data$X3, X4=Data$X4, X5=Data$X5, X6=Data$X6,
-                 Intercept=c(1,rep(NA,6+S-1+T-1+(S-1)*(T-1))),
-                 beta1=c(NA,1,rep(NA,5+S-1+T-1+(S-1)*(T-1))),
-                 beta2=c(rep(NA,2),1,rep(NA,4+S-1+T-1+(S-1)*(T-1))),
-                 beta3=c(rep(NA,3),1,rep(NA,3+S-1+T-1+(S-1)*(T-1))),
-                 beta4=c(rep(NA,4),1,rep(NA,2+S-1+T-1+(S-1)*(T-1))),
-                 beta5=c(rep(NA,5),1,rep(NA,1+S-1+T-1+(S-1)*(T-1))),
-                 beta6=c(rep(NA,6),1,rep(NA,S-1+T-1+(S-1)*(T-1))),
-                 ID.area=c(rep(NA,1+6),1:(S-1),rep(NA,T-1+(S-1)*(T-1))),
-                 ID.year=c(rep(NA,1+6+S-1),1:(T-1),rep(NA,(S-1)*(T-1))),
-                 ID.area.year=c(rep(NA,1+6+S-1+T-1),seq(1,(S-1)*(T-1))))
-
-# Data.M3b <- list(O=Data$O, E=Data$E)
-# Data.M3b <- append(Data.M3b, setNames(lapply(colnames(Beta.df), function(x) Beta.df[,x]), colnames(Beta.df)))
-# Data.M3b <- append(Data.M3b, list(Intercept=c(1,rep(NA,p+S-1+T-1+(S-1)*(T-1)))))
-# for(i in 1:p){
-#    aux <- rep(NA,1+p+S-1+T-1+(S-1)*(T-1))
-#    aux[1+i] <- 1
-#    Data.M3b <- append(Data.M3b, setNames(list(aux), paste0("beta",i)))
-# }
-# Data.M3b <- append(Data.M3b, list(ID.area=c(rep(NA,1+p),1:(S-1),rep(NA,T-1+(S-1)*(T-1)))))
-# Data.M3b <- append(Data.M3b, list(ID.year=c(rep(NA,1+p+S-1),1:(T-1),rep(NA,(S-1)*(T-1)))))
-# Data.M3b <- append(Data.M3b, list(ID.area.year=c(rep(NA,1+p+S-1+T-1),seq(1,(S-1)*(T-1)))))
-
-
-## INLA model ##
-f.M3b <- O ~ -1 + Intercept + beta1 +  beta2 + beta3 + beta4 + beta5 + beta6 +
-  f(ID.area, model="generic0", Cmatrix=Ds, rankdef=0, constr=FALSE, hyper=list(prec=list(prior=sdunif))) +
-  f(ID.year, model="generic0", Cmatrix=Dt, rankdef=0, constr=FALSE, hyper=list(prec=list(prior=sdunif))) +
-  f(ID.area.year, model="generic0", Cmatrix=Dst, rankdef=0, constr=FALSE, hyper=list(prec=list(prior=sdunif)))
-
-Apredictor <- cbind(rep(1,S*T),Beta.df,Z.area,Z.year,Z.area.year)
-
-Model3b <- inla(f.M3b, family="poisson", data=Data.M3b, E=E,
-                control.predictor=list(compute=TRUE, A=Apredictor),
-                control.compute=list(dic=TRUE, cpo=TRUE, waic=TRUE),
-                control.inla=list(strategy=strategy),
-                lincomb=all.lc.Apredictor,
-                control.mode=list(theta=Model2$mode$theta, restart=FALSE),
-                control.fixed=list(prec=0))
-
-Model3b$summary.fixed
+Model3$summary.fixed
 
 
 ############################################################
@@ -370,4 +270,4 @@ Model4$summary.fixed
 ## Save the results ##
 ######################
 
-save(list=c("Model1","Model2","Model3a","Model3b","Model4"), file="DataAnalysis_INLA.Rdata")
+save(list=c("Model1","Model2","Model3","Model4"), file="DataAnalysis_INLA.Rdata")
