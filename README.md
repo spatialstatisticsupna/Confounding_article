@@ -69,5 +69,8 @@ the vector of fixed effects &beta;<sup>*</sup> can be computed using the followi
 A similar approach is used to estimate the restricted regression spatio-temporal model described in Adin et al. (2021).
 
 
+# Acknowledgements
+This work has been supported by the Spanish Ministry of Economy, Industry, and Competitiveness (project MTM2017-82553-R, AEI/FEDER, UE), and partially funded by la Caixa Foundation (ID 1000010434), Caja Navarra Foundation and UNED Pamplona, under agreement LCF/PR/PR15/51100007.
+
 # References
 [Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2021). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. _Statistical Modelling (accepted)_](https://arxiv.org/abs/2003.01946v3)
