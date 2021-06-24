@@ -43,7 +43,7 @@ R code to fit with INLA (http://www.r-inla.org/) the spatio-temporal models cons
 
 - [**DataAnalysis_INLA.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/DataAnalysis_INLA.R)
 
-  This R script contains the necessary functions to replicate with INLA the fit of the spatio-temporal models considered in the data analysis section of the present paper. The code can be used with any other data set with similar structure.
+  This R script contains the necessary functions to replicate with INLA the fit of the spatio-temporal models considered in the data analysis section of the paper. The code can be used with any other data sets with similar structure.
   
 - [**Figures_and_Tables.R**](https://github.com/spatialstatisticsupna/Confounding_article/blob/master/R/Figures_and_Tables.R)
  
