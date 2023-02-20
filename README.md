@@ -1,5 +1,5 @@
 # Alleviating confounding in spatio-temporal areal models
-This repository contains the R code to fit with INLA the spatio-temporal models considered in the data analysis section of the paper _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ [(Adin et al., 2021)](https://journals.sagepub.com/doi/full/10.1177/1471082X211015452). It also contains the necessary functions to reproduce all the figures and tables of the article.
+This repository contains the R code to fit with INLA the spatio-temporal models considered in the data analysis section of the paper _"Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India"_ [(Adin et al., 2023)](https://journals.sagepub.com/doi/full/10.1177/1471082X211015452). It also contains the necessary functions to reproduce all the figures and tables of the article.
 
 
 ## Table of contents
@@ -73,4 +73,4 @@ A similar approach is used to estimate the restricted regression spatio-temporal
 This work has been supported by the Spanish Ministry of Economy, Industry, and Competitiveness (project MTM2017-82553-R, AEI/FEDER, UE), and partially funded by la Caixa Foundation (ID 1000010434), Caja Navarra Foundation and UNED Pamplona, under agreement LCF/PR/PR15/51100007.
 
 # References
-[Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2021). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. _Statistical Modelling (online first)_. DOI: 10.1177/1471082X211015452](https://journals.sagepub.com/doi/full/10.1177/1471082X211015452)
+[Adin, A., Goicoa, T., Hodges, J.S., Schnell, P., and Ugarte, M.D. (2023). Alleviating confounding in spatio-temporal areal models with an application on crimes against women in India. _Statistical Modelling_, __23(1)__, 9-30. DOI: 10.1177/1471082X211015452](https://journals.sagepub.com/doi/full/10.1177/1471082X211015452)
