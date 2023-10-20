@@ -1,8 +1,10 @@
 rm(list=ls())
 
 library(INLA)
-library(rgdal)
+library(sf)
 library(spdep)
+
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 
 ############################################################################
@@ -70,14 +72,14 @@ Qt <- t(Dm)%*%Dm
 ###############################
 ## Read the cartography file ##
 ###############################
-carto_up <- readOGR("../data/carto_up")
-plot(carto_up,axes=T)
+carto_up <- st_read("../data/carto_up")
+plot(carto_up$geometry, axes=T)
 
 ## Add the neighbourhood graph ##
 W <- -Qs
 diag(W) <- 0
-carto.nb <- mat2listw(W)$neighbours
-plot(carto.nb, coordinates(carto_up), pch=19, cex=0.8, col="blue", add=TRUE)
+carto.nb <- mat2listw(W, style="B")$neighbours
+plot(carto.nb, st_coordinates(st_centroid(carto_up)), pch=19, cex=0.8, col="blue", add=TRUE)
 
 
 #########################################
